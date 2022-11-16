@@ -3,25 +3,28 @@ const inputElem = $.getElementById("itemInput");
 const addButton = $.getElementById("addButton");
 const clearButton = $.getElementById("clearButton");
 const todoListElem = $.getElementById("todoList");
+const noTodoElem = $.querySelector(".no-todo");
 
 let todosArray = [];
 
 function addNewTodo() {
-   let newTodoTitle = inputElem.value;
+   if (inputElem.value) {
+      let newTodoTitle = inputElem.value;
 
-   let newTodoObj = {
-      id: todosArray.length + 1,
-      title: newTodoTitle,
-      complete: false,
-   };
+      let newTodoObj = {
+         id: todosArray.length + 1,
+         title: newTodoTitle,
+         complete: false,
+      };
 
-   inputElem.value = "";
+      inputElem.value = "";
 
-   todosArray.push(newTodoObj);
-   setLocalStorage(todosArray);
-   todosGenerator(todosArray);
+      todosArray.push(newTodoObj);
+      setLocalStorage(todosArray);
+      todosGenerator(todosArray);
 
-   inputElem.focus();
+      inputElem.focus();
+   }
 }
 
 function setLocalStorage(todosList) {
@@ -61,6 +64,12 @@ function todosGenerator(todosList) {
 
       todoListElem.append(newTodoLiElem);
    });
+
+   if (todosArray.length === 0) {
+      noTodoElem.style.display = "block";
+   } else {
+      noTodoElem.style.display = "none";
+   }
 }
 
 function editTodo(todoId) {
@@ -120,3 +129,11 @@ inputElem.addEventListener("keydown", function (event) {
       addNewTodo();
    }
 });
+
+// console.log(todosArray.length);
+
+if (todosArray.length === 0) {
+   noTodoElem.style.display = "block";
+} else {
+   noTodoElem.style.display = "none";
+}
