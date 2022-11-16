@@ -1,0 +1,81 @@
+@font-face {
+   font-family: "pop";
+   src: url(../fonts/Poppins-Regular.woff2);
+}
+
+body {
+   background-color: #c9ccd3;
+}
+
+.container {
+   min-height: 100vh;
+   font-family: "pop";
+}
+
+.text-center {
+   font-family: "pop";
+   margin-top: 50px;
+   font-weight: 700;
+}
+
+.form-group {
+   max-width: 1000px;
+   margin: 50px auto 20px auto;
+}
+
+.form-control {
+   padding: 20px 10px;
+   font-size: 18px;
+   box-shadow: 0px 0px 13px 8px rgba(0, 0, 0, 0.1);
+}
+
+#addButton {
+   margin-left: 70px;
+}
+
+#todoList label {
+   width: 80%;
+}
+#todoList li {
+   list-style-type: none;
+}
+
+.uncompleted label {
+   color: #afa7a7;
+   text-decoration: line-through;
+}
+#todoList .btn {
+   margin-left: 10px;
+}
+
+.any-title {
+   margin-top: 100px;
+   margin-left: 40px;
+}
+
+#todoList {
+   font-size: 18px;
+}
+
+.btn-uncom {
+   border: 1px solid gray;
+   font-size: 13px;
+}
+
+.well {
+   box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.486);
+   margin-top: 30px !important;
+}
+
+.completed {
+}
+
+.uncompleted {
+   box-shadow: 0px 0px 13px 8px rgba(50, 168, 70, 0.486);
+}
+
+#clearButton {
+   display: block;
+   margin-left: auto;
+   margin-bottom: 50px;
+}
