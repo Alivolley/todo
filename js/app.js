@@ -15,6 +15,7 @@ function addNewTodo() {
          id: todosArray.length + 1,
          title: newTodoTitle,
          complete: false,
+         fave: false,
       };
 
       inputElem.value = "";
@@ -32,7 +33,7 @@ function setLocalStorage(todosList) {
 }
 
 function todosGenerator(todosList) {
-   let newTodoLiElem, newTodoLabalElem, newTodoCompleteBtn, newTodoDeleteBtn;
+   let newTodoLiElem, newTodoLabalElem, newTodoCompleteBtn, newTodoDeleteBtn, newTodoFaveBtn;
 
    todoListElem.innerHTML = "";
 
@@ -49,6 +50,22 @@ function todosGenerator(todosList) {
       newTodoCompleteBtn.innerHTML = "Complete";
       newTodoCompleteBtn.setAttribute("onclick", "editTodo(" + todo.id + ")");
 
+      newTodoFaveBtn = $.createElement("button");
+      newTodoFaveBtn.className = "faveBtn";
+      newTodoFaveBtn.innerHTML = `<svg
+      className="starCalss"
+      stroke="black"
+      fill="white"
+      stroke-width="40px"
+      viewBox="0 0 576 512"
+      height="1.2em"
+      width="1.2em"
+      xmlns="http://www.w3.org/2000/svg"
+   >
+      <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path>
+   </svg>`;
+      newTodoFaveBtn.setAttribute("onclick", "faveTodo(" + todo.id + ")");
+
       newTodoDeleteBtn = $.createElement("button");
       newTodoDeleteBtn.className = "btn btn-danger";
       newTodoDeleteBtn.innerHTML = "Delete";
@@ -60,7 +77,22 @@ function todosGenerator(todosList) {
          newTodoCompleteBtn.className = "btn btn-secondary btn-uncom";
       }
 
-      newTodoLiElem.append(newTodoLabalElem, newTodoCompleteBtn, newTodoDeleteBtn);
+      if (todo.fave) {
+         newTodoFaveBtn.innerHTML = `<svg
+         className="starCalss"
+         stroke="gold"
+         fill="gold"
+         stroke-width="40px"
+         viewBox="0 0 576 512"
+         height="1.2em"
+         width="1.2em"
+         xmlns="http://www.w3.org/2000/svg"
+      >
+         <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path>
+      </svg>`;
+      }
+
+      newTodoLiElem.append(newTodoLabalElem, newTodoCompleteBtn, newTodoDeleteBtn, newTodoFaveBtn);
 
       todoListElem.append(newTodoLiElem);
    });
@@ -80,6 +112,21 @@ function editTodo(todoId) {
    todosArray.forEach(function (todo) {
       if (todo.id === todoId) {
          todo.complete = !todo.complete;
+      }
+   });
+
+   setLocalStorage(todosArray);
+   todosGenerator(todosArray);
+}
+
+function faveTodo(todoId) {
+   let localStorageTodos = JSON.parse(localStorage.getItem("todos"));
+
+   todosArray = localStorageTodos;
+
+   todosArray.forEach(function (todo) {
+      if (todo.id === todoId) {
+         todo.fave = !todo.fave;
       }
    });
 
